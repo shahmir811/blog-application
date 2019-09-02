@@ -1,0 +1,26 @@
+{
+  "name": "blog_application",
+  "version": "1.0.0",
+  "description": "Blog application including posts and tags",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js"
+  },
+  "author": "Shahmir Khan Jadoon",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.11",
+    "mongoose-url-slugs": "^1.0.2"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1"
+  }
+}
