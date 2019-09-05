@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const tagRoutes = require('./routes/tags');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/posts');
 
 const app = express();
 connectDB();
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use('/tags', tagRoutes);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
+app.use('/posts', postRoutes);
 
 const PORT = process.env.PORT || 5000;
 

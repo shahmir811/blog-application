@@ -11,9 +11,12 @@ router.get('/', auth, TagController.all_tags);
 router.post(
   '/create',
   [
-    check('name', 'Tag name is required')
-      .not()
-      .isEmpty()
+    auth,
+    [
+      check('name', 'Tag name is required')
+        .not()
+        .isEmpty()
+    ]
   ],
   TagController.add_tag
 );

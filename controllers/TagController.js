@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 
 const Tag = require('../models/Tag');
 
+/////////////////////////////////////////////////////////////////////////
 // get list of all tags
 exports.all_tags = async (req, res) => {
   try {
@@ -22,6 +23,7 @@ exports.all_tags = async (req, res) => {
   }
 };
 
+/////////////////////////////////////////////////////////////////////////
 // Add new tag
 exports.add_tag = async (req, res) => {
   const errors = validationResult(req);
@@ -50,6 +52,7 @@ exports.add_tag = async (req, res) => {
   }
 };
 
+/////////////////////////////////////////////////////////////////////////
 // delete tag
 exports.delete_tag = async (req, res) => {
   const { id } = req.params;
