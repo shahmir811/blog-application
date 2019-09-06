@@ -1,0 +1,19 @@
+.top-main-nav {
+  background-color: #d47a19;
+}
+
+.navbar-brand {
+  color: #eee;
+}
+
+.navbar-brand:hover {
+  color: #bbb;
+}
+
+.nav-link {
+  color: #eee;
+}
+
+.nav-link:hover {
+  color: #bbb;
+}
