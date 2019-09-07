@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
-const Alerts = () => {
-  return (
-    <div className='alert alert-success' role='alert'>
-      A simple secondary alert—check it out!
-    </div>
-  );
+const Alerts = props => {
+  const { alert } = props;
+
+  const renderAlerts = () => {
+    if (alert !== null || alert.length > 0) {
+      return alert.map(alt => {
+        return (
+          <div className={`alert alert-${alt.alertType}`} key={alt.id}>
+            <strong>{alt.msg}</strong>
+          </div>
+        );
+      });
+    }
+  };
+
+  return <Fragment>{renderAlerts()}</Fragment>;
 };
 
-export default Alerts;
+/////////////////////////// mapStateToProps /////////////////////////////
+const mapStateToProps = state => ({
+  alert: state.alert
+});
+
+export default connect(mapStateToProps)(Alerts);

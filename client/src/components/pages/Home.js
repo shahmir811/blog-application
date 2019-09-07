@@ -1,7 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Home = () => {
+const Home = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/posts' />;
+  }
+
   return (
     <div className='jumbotron mt-5'>
       <h1 className='display-4 text-center'>Welcome to Blog App!</h1>
@@ -25,4 +31,17 @@ const Home = () => {
   );
 };
 
-export default Home;
+//////////////////////////////// propTypes /////////////////////////////
+Home.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
+};
+
+//////////////////////////////// mapStateToProps /////////////////////////////
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Home);
