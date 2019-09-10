@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Home = ({ isAuthenticated }) => {
   if (isAuthenticated) {
-    return <Redirect to='/posts' />;
+    return <Redirect to='/dashboard' />;
   }
 
   return (

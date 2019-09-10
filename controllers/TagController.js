@@ -41,8 +41,8 @@ exports.add_tag = async (req, res) => {
 
     const response = await newTag.save();
     res.status(201).json({
-      message: 'Order created successfully',
-      createdOrder: {
+      message: 'Tag created successfully',
+      createdTag: {
         _id: response._id,
         name: response.name
       }

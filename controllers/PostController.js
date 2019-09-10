@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
-// const slug = require('mongoose-url-slugs');
 
 const Post = require('../models/Post');
 const User = require('../models/User');
@@ -23,9 +22,8 @@ exports.all_posts = async (req, res) => {
           title: post.title,
           body: post.body,
           created_by: post.user.name,
+          created_at: post.created_at,
           tag: post.tag.name,
-          created_by_id: post.user._id,
-          currently_logged_in_id: req.user.id,
           myPost: post.user._id.toString() === req.user.id ? true : false
         };
       })
