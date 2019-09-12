@@ -1,14 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 
-const createPost = props => {
+import PostForm from './PostForm';
+
+const CreatePost = ({ history }) => {
+  const moveBackToDashboard = () => {
+    history.push('/dashboard');
+  };
+
   return (
-    <div>
-      <h1>Create Post</h1>
-    </div>
+    <Fragment>
+      <PostForm moveBack={() => moveBackToDashboard()} />
+    </Fragment>
   );
 };
 
-createPost.propTypes = {};
-
-export default createPost;
+export default CreatePost;

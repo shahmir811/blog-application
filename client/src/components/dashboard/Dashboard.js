@@ -51,8 +51,4 @@ const tagsStyle = {
   padding: '5px'
 };
 
-const postStyle = {
-  padding: '5px'
-};
-
 export default Dashboard;

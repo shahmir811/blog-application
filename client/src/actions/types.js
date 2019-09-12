@@ -14,8 +14,10 @@ export const LOADING_TAGS = 'LOADING_TAGS';
 export const ALL_TAGS = 'ALL_TAGS';
 export const SELECTED_TAG = 'SELECTED_TAG';
 export const TAGS_ERROR = 'TAGS_ERROR';
+export const ADD_TAG = 'ADD_TAG';
 
 ///////////// posts ///////////
 export const LOADING_POSTS = 'LOADING_POSTS';
 export const ALL_POSTS = 'ALL_POSTS';
 export const POST_ERROR = 'POST_ERROR';
+export const ADD_POST = 'ADD_POST';

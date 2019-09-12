@@ -2,7 +2,8 @@ import {
   LOADING_TAGS,
   ALL_TAGS,
   SELECTED_TAG,
-  TAGS_ERROR
+  TAGS_ERROR,
+  ADD_TAG
 } from '../actions/types';
 
 const initialState = {
@@ -24,6 +25,9 @@ export default (state = initialState, action) => {
 
     case TAGS_ERROR:
       return { ...state, error: payload };
+
+    case ADD_TAG:
+      return { ...state, tags: [...state.tags, payload], loading: false };
 
     case LOADING_TAGS:
       return { ...state, loading: true };

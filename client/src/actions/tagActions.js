@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { LOADING_TAGS, ALL_TAGS, SELECTED_TAG, TAGS_ERROR } from './types';
+import {
+  LOADING_TAGS,
+  ALL_TAGS,
+  SELECTED_TAG,
+  TAGS_ERROR,
+  ADD_TAG
+} from './types';
+
+import { setAlert } from './alertActions';
 
 ///////////////////////////////////////////////////////////////////////////////
 // Get all tags
@@ -26,6 +34,37 @@ export const all_tags = () => async (dispatch, getState) => {
     const id = response.data.tags[0]._id;
 
     dispatch(updateSelectedTag(id));
+  } catch (error) {
+    dispatch({
+      type: TAGS_ERROR,
+      payload: error.response.data
+    });
+  }
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Add new tag
+export const addNewTag = tag => async (dispatch, getState) => {
+  try {
+    dispatch(loadingTags());
+
+    const token = getState().auth.token;
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    };
+
+    const response = await axios.post('/tags/create', { name: tag }, config);
+
+    dispatch({
+      type: ADD_TAG,
+      payload: response.data.createdTag
+    });
+
+    setAlert('New tag created successfully', 'success');
   } catch (error) {
     dispatch({
       type: TAGS_ERROR,

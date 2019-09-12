@@ -23,7 +23,6 @@ const Register = ({ setAlert, isAuthenticated, registerUser }) => {
 
   const submitForm = e => {
     e.preventDefault();
-    console.log(user);
 
     if (password !== confirmPassword) {
       setAlert('Passwords not match', 'danger');
