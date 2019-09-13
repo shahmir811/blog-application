@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import PostList from '../posts/PostList';
 import TagList from '../tags/TagList';
 
 const Dashboard = () => {
+  const [search, setSearch] = useState('all');
+
+  const onChange = e => {
+    setSearch(e.target.value);
+  };
+
   return (
     <div className='mt-5'>
       <h1>Dashboard component</h1>
@@ -12,9 +18,11 @@ const Dashboard = () => {
       <div className='row'>
         <div className='col-md-6 offset-md-3'>
           <select
-            name='postSearch'
-            id='postSearch'
+            name='search'
+            id='search'
             className='form-control text-center'
+            value={search}
+            onChange={onChange}
           >
             <option value='all'>All</option>
             <option value='my'>My Posts</option>
@@ -38,7 +46,7 @@ const Dashboard = () => {
           <Link to='/createPost' className='btn btn-sm btn-success mb-3'>
             <i className='fas fa-plus-circle'></i> New Post
           </Link>
-          <PostList />
+          <PostList searchType={search} />
         </div>
       </div>
     </div>

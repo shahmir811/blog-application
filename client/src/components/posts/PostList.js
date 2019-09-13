@@ -6,7 +6,7 @@ import { getAllPosts } from '../../actions/postActions';
 import PostItem from './PostItem';
 import Spinner from '../layouts/Spinner';
 
-const PostList = ({ getAllPosts, post }) => {
+const PostList = ({ getAllPosts, post, selectedTag, searchType }) => {
   const { posts, loading } = post;
 
   useEffect(() => {
@@ -14,9 +14,19 @@ const PostList = ({ getAllPosts, post }) => {
     // eslint-disble-next-line
   }, [getAllPosts]);
 
+  const getMyPosts = records => {
+    return records.filter(record => record.myPost === true);
+  };
+
   const renderPosts = () => {
     if (posts !== null && posts.length > 0 && !loading) {
-      return posts.map(post => <PostItem key={post._id} post={post} />);
+      let filteredPosts = posts.filter(post => post.tagId === selectedTag);
+
+      if (searchType === 'my') {
+        filteredPosts = getMyPosts(filteredPosts);
+      }
+
+      return filteredPosts.map(post => <PostItem key={post._id} post={post} />);
     } else {
       return <Spinner />;
     }
@@ -33,8 +43,17 @@ PostList.propTypes = {
 
 ///////////////////////////// mapStateToProps //////////////////////////////////
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  selectedTag: state.tag.selectedTag
 });
+// const mapStateToProps = state => {
+//   const allPosts = state.post.posts ? state.post.posts : [];
+//   const tagSelected = state.tag.selectedTag;
+
+//   return {
+//     posts: allPosts.filter(post => post.tagId === tagSelected)
+//   };
+// };
 
 ///////////////////////////// mapDispatchToProps //////////////////////////////////
 const mapDispatchToProps = dispatch => ({
