@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { addPost } from '../../actions/postActions';
+import { addPost, updatePost } from '../../actions/postActions';
 
 const PostForm = props => {
-  const { tags, addPost, moveBack } = props;
+  const { tags, addPost, moveBack, comingPost, updatePost } = props;
 
   const [post, setPost] = useState({
-    title: '',
-    body: '',
-    tagId: ''
+    title: comingPost ? comingPost.title : '',
+    body: comingPost ? comingPost.body : '',
+    tagId: comingPost ? comingPost.tagId : ''
   });
 
   const [titleError, setTitleError] = useState('');
@@ -50,7 +50,7 @@ const PostForm = props => {
         tagId
       };
 
-      addPost(newPost);
+      comingPost ? updatePost(newPost) : addPost(newPost);
       moveBack();
     }
   };
@@ -67,7 +67,7 @@ const PostForm = props => {
 
   return (
     <div>
-      <h1 className='text-center'>Create Post</h1>
+      <h1 className='text-center'>{comingPost ? 'Edit' : 'Create'} Post</h1>
       <form onSubmit={submitForm}>
         <div className='form-group'>
           <label htmlFor='title'>Title</label>
@@ -128,7 +128,7 @@ const PostForm = props => {
 
         <div className='form-group'>
           <button type='submit' className='btn btn-success'>
-            <i className='fas fa-save'></i> Create
+            <i className='fas fa-save'></i> {comingPost ? 'Edit' : 'Create'}
           </button>
         </div>
       </form>
@@ -137,6 +137,10 @@ const PostForm = props => {
       </Link>
     </div>
   );
+};
+
+PostForm.defaultProps = {
+  comingPost: null
 };
 
 ///////////////////////////// propTypes //////////////////////////////////
@@ -151,7 +155,8 @@ const mapStateToProps = state => ({
 
 ///////////////////////////// mapDispatchToProps //////////////////////////////////
 const mapDispatchToProps = dispatch => ({
-  addPost: newPost => dispatch(addPost(newPost))
+  addPost: newPost => dispatch(addPost(newPost)),
+  updatePost: post => dispatch(updatePost(post))
 });
 
 ///////////////////////////// propTypes //////////////////////////////////

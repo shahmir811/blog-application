@@ -24,6 +24,7 @@ exports.all_posts = async (req, res) => {
           created_by: post.user.name,
           created_at: post.created_at,
           tag: post.tag.name,
+          tagId: post.tag._id,
           myPost: post.user._id.toString() === req.user.id ? true : false
         };
       })
@@ -93,15 +94,24 @@ exports.update_post = async (req, res) => {
     }
 
     const updatedPost = {};
-    updatedPost.user = req.user.id;
-    if (title) updatedPost.title = title;
-    if (body) updatedPost.body = body;
-    if (tagId) updatedPost.tagId = tagId;
+    // updatedPost.user = req.user.id;
+    updatedPost.title = title;
+    updatedPost.body = body;
+    updatedPost.tagId = tagId;
 
-    const response = await Post.findByIdAndUpdate(id, {
-      $set: updatedPost,
-      new: true
-    }).select('_id title slug body');
+    const response = await Post.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          title: updatedPost.title,
+          body: updatedPost.body,
+          tag: updatedPost.tagId
+        }
+      },
+      { new: true }
+    )
+      .select('_id title slug body')
+      .populate('tag', '_id name');
 
     res.status(200).json({
       message: 'Post record updated',

@@ -2,13 +2,17 @@ import {
   ALL_POSTS,
   LOADING_POSTS,
   POST_ERROR,
-  ADD_POST
+  ADD_POST,
+  EDIT_POST,
+  UPDATE_POST,
+  DELETE_POST
 } from '../actions/types';
 
 const initialState = {
   posts: null,
   loading: false,
-  error: null
+  error: null,
+  selectedPost: null
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +20,13 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case ALL_POSTS:
-      return { ...state, posts: payload, loading: false, error: null };
+      return {
+        ...state,
+        posts: payload,
+        loading: false,
+        error: null,
+        selectedPost: null
+      };
 
     case ADD_POST:
       return {
@@ -24,6 +34,22 @@ export default (state = initialState, action) => {
         posts: [...state.posts, payload],
         loading: false,
         error: null
+      };
+
+    case EDIT_POST:
+      return {
+        ...state,
+        selectedPost: state.posts.filter(post => post.slug === payload)
+      };
+
+    case UPDATE_POST:
+      return { ...state, loading: false, selectedPost: null };
+
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.slug !== payload),
+        loading: false
       };
 
     case LOADING_POSTS:

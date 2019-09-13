@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const PostItem = ({ post }) => {
-  const { _id, title, slug, body, created_at, created_by, tag, myPost } = post;
+import { deletePost } from '../../actions/postActions';
+
+const PostItem = ({ post, deletePost }) => {
+  const { title, slug, body, created_at, created_by, tag, myPost } = post;
+
+  const deleteMentionedPost = slug => {
+    const confirm = window.confirm('Are you sure to delete this post ?');
+    if (confirm) {
+      deletePost(slug);
+    }
+  };
 
   return (
     <div style={postItemStyle}>
@@ -19,14 +29,23 @@ const PostItem = ({ post }) => {
                 <Moment format='YYYY-MM-DD'>{created_at}</Moment>
               </small>
             </div>
-            <div className='col-sm-6'>
+            <div className='col-sm-7'>
               {myPost && (
-                <Link
-                  className='btn btn-sm btn-success'
-                  to={`/editPost/${slug}`}
-                >
-                  <i className='fas fa-edit'></i> Edit Post
-                </Link>
+                <Fragment>
+                  <Link
+                    className='btn btn-sm btn-success'
+                    to={`/editPost/${slug}`}
+                  >
+                    <i className='fas fa-edit'></i> Edit Post
+                  </Link>
+                  <a
+                    href='#!'
+                    className='btn btn-danger ml-1'
+                    onClick={() => deleteMentionedPost(slug)}
+                  >
+                    X
+                  </a>
+                </Fragment>
               )}
             </div>
           </div>
@@ -56,7 +75,8 @@ const PostItem = ({ post }) => {
 };
 
 PostItem.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired
 };
 
 const postItemStyle = {
@@ -66,4 +86,11 @@ const postItemStyle = {
   marginBottom: '2px'
 };
 
-export default PostItem;
+const mapDispatchToProps = dispatch => ({
+  deletePost: slug => dispatch(deletePost(slug))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(PostItem);
