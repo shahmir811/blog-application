@@ -5,7 +5,9 @@ import {
   ADD_POST,
   EDIT_POST,
   UPDATE_POST,
-  DELETE_POST
+  DELETE_POST,
+  VIEW_POST,
+  CLEAR_VIEW_POST
 } from '../actions/types';
 
 const initialState = {
@@ -37,10 +39,14 @@ export default (state = initialState, action) => {
       };
 
     case EDIT_POST:
+    case VIEW_POST:
       return {
         ...state,
         selectedPost: state.posts.filter(post => post.slug === payload)
       };
+
+    case CLEAR_VIEW_POST:
+      return { ...state, selectedPost: null };
 
     case UPDATE_POST:
       return { ...state, loading: false, selectedPost: null };

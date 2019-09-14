@@ -6,7 +6,9 @@ import {
   ADD_POST,
   EDIT_POST,
   UPDATE_POST,
-  DELETE_POST
+  DELETE_POST,
+  VIEW_POST,
+  CLEAR_VIEW_POST
 } from './types';
 
 import { setAlert } from './alertActions';
@@ -69,6 +71,23 @@ export const addPost = post => async (dispatch, getState) => {
       payload: error.response.data
     });
   }
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// View Post
+export const viewPost = slug => dispatch => {
+  dispatch({
+    type: VIEW_POST,
+    payload: slug
+  });
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Clear View Post
+export const clearViewPost = () => dispatch => {
+  dispatch({
+    type: CLEAR_VIEW_POST
+  });
 };
 
 ///////////////////////////////////////////////////////////////////////////////

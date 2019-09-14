@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PostModal from './PostModal';
 
-import { deletePost } from '../../actions/postActions';
+import { deletePost, viewPost } from '../../actions/postActions';
 
-const PostItem = ({ post, deletePost }) => {
+const PostItem = ({ post, deletePost, viewPost }) => {
   const { title, slug, body, created_at, created_by, tag, myPost } = post;
 
   const deleteMentionedPost = slug => {
@@ -20,8 +21,19 @@ const PostItem = ({ post, deletePost }) => {
     <div style={postItemStyle}>
       <div className='row'>
         <div className='col-md-4'>
-          <h3>{title}</h3>
+          <h3>
+            <a
+              data-toggle='modal'
+              data-target='#viewPost'
+              href='#!'
+              onClick={() => viewPost(slug)}
+            >
+              {title}
+            </a>
+          </h3>
         </div>
+
+        <PostModal />
         <div className='col-md-4 ml-auto'>
           <div className='row justify-content-between'>
             <div className='col-sm-5'>
@@ -87,7 +99,8 @@ const postItemStyle = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  deletePost: slug => dispatch(deletePost(slug))
+  deletePost: slug => dispatch(deletePost(slug)),
+  viewPost: slug => dispatch(viewPost(slug))
 });
 
 export default connect(

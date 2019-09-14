@@ -10,6 +10,7 @@ const Tag = require('../models/Tag');
 exports.all_posts = async (req, res) => {
   try {
     const posts = await Post.find()
+      .select('_id slug title body postImage created_at')
       .populate('user', '_id name')
       .populate('tag', '_id name');
 
@@ -21,6 +22,9 @@ exports.all_posts = async (req, res) => {
           slug: post.slug,
           title: post.title,
           body: post.body,
+          image: post.postImage
+            ? 'http://localhost:5000/' + post.postImage
+            : 'http://localhost:5000/uploads/default_post_image.jpg',
           created_by: post.user.name,
           created_at: post.created_at,
           tag: post.tag.name,
@@ -50,7 +54,8 @@ exports.create_post = async (req, res) => {
       user: req.user.id,
       tag: tagId,
       title,
-      body
+      body,
+      postImage: req.file.path ? req.file.path : null
     });
 
     await newPost.save();

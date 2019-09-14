@@ -46,14 +46,6 @@ const mapStateToProps = state => ({
   post: state.post,
   selectedTag: state.tag.selectedTag
 });
-// const mapStateToProps = state => {
-//   const allPosts = state.post.posts ? state.post.posts : [];
-//   const tagSelected = state.tag.selectedTag;
-
-//   return {
-//     posts: allPosts.filter(post => post.tagId === tagSelected)
-//   };
-// };
 
 ///////////////////////////// mapDispatchToProps //////////////////////////////////
 const mapDispatchToProps = dispatch => ({

@@ -13,6 +13,10 @@ connectDB();
 
 // middlewares
 app.use(morgan('dev')); //  log request
+
+// Making folder public
+app.use('/uploads', express.static('uploads'));
+
 // Below is body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
