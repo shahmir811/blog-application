@@ -64,7 +64,7 @@ export const addPost = post => async (dispatch, getState) => {
       payload: response.data.post
     });
 
-    setAlert('New post added', 'success');
+    dispatch(setAlert('New post added', 'success'));
   } catch (error) {
     dispatch({
       type: POST_ERROR,
@@ -127,7 +127,7 @@ export const updatePost = post => async (dispatch, getState) => {
       type: UPDATE_POST
     });
 
-    setAlert('Post details updated', 'success');
+    dispatch(setAlert('Post details updated', 'success'));
   } catch (error) {
     dispatch({
       type: POST_ERROR,

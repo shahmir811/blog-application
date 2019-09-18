@@ -64,7 +64,7 @@ export const addNewTag = tag => async (dispatch, getState) => {
       payload: response.data.createdTag
     });
 
-    setAlert('New tag created successfully', 'success');
+    dispatch(setAlert('New tag created successfully', 'success'));
   } catch (error) {
     dispatch({
       type: TAGS_ERROR,
